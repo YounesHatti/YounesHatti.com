@@ -37,7 +37,7 @@ body {
 }
 
 /* ================================
-   Islamic Pattern Background
+   Islamic Pattern Background - Complex Geometry
    ================================ */
 .islamic-pattern {
     position: fixed;
@@ -47,10 +47,20 @@ body {
     height: 100%;
     z-index: -2;
     background: var(--darker-bg);
+    /* Complex interlocking star pattern (8-pointed stars) */
     background-image:
-        repeating-linear-gradient(45deg, transparent, transparent 35px, var(--royal-green-dark) 35px, var(--royal-green-dark) 70px),
-        repeating-linear-gradient(-45deg, transparent, transparent 35px, var(--royal-green-dark) 35px, var(--royal-green-dark) 70px);
-    opacity: 0.3;
+        /* Layer 1: Primary star pattern */
+        repeating-linear-gradient(0deg, transparent, transparent 20px, var(--royal-green-dark) 20px, var(--royal-green-dark) 21px),
+        repeating-linear-gradient(45deg, transparent, transparent 20px, var(--royal-green-dark) 20px, var(--royal-green-dark) 21px),
+        repeating-linear-gradient(90deg, transparent, transparent 20px, var(--royal-green-dark) 20px, var(--royal-green-dark) 21px),
+        repeating-linear-gradient(135deg, transparent, transparent 20px, var(--royal-green-dark) 20px, var(--royal-green-dark) 21px),
+        /* Layer 2: Secondary diagonal pattern */
+        repeating-linear-gradient(22.5deg, transparent, transparent 40px, rgba(15, 99, 66, 0.3) 40px, rgba(15, 99, 66, 0.3) 41px),
+        repeating-linear-gradient(-22.5deg, transparent, transparent 40px, rgba(15, 99, 66, 0.3) 40px, rgba(15, 99, 66, 0.3) 41px),
+        repeating-linear-gradient(67.5deg, transparent, transparent 40px, rgba(15, 99, 66, 0.3) 40px, rgba(15, 99, 66, 0.3) 41px),
+        repeating-linear-gradient(-67.5deg, transparent, transparent 40px, rgba(15, 99, 66, 0.3) 40px, rgba(15, 99, 66, 0.3) 41px);
+    background-size: 100px 100px;
+    opacity: 0.4;
 }
 
 .islamic-pattern::before {
@@ -60,17 +70,68 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
+    /* Zellige tile pattern with intricate geometric shapes */
     background-image:
-        radial-gradient(circle at 25% 25%, var(--royal-green) 2px, transparent 2px),
-        radial-gradient(circle at 75% 75%, var(--gold-accent) 1px, transparent 1px);
-    background-size: 50px 50px;
-    opacity: 0.2;
-    animation: patternShift 20s linear infinite;
+        /* Octagonal pattern */
+        conic-gradient(from 0deg at 50% 50%,
+            transparent 0deg 45deg,
+            var(--royal-green) 45deg 90deg,
+            transparent 90deg 135deg,
+            var(--royal-green) 135deg 180deg,
+            transparent 180deg 225deg,
+            var(--royal-green) 225deg 270deg,
+            transparent 270deg 315deg,
+            var(--royal-green) 315deg 360deg),
+        /* Decorative dots in royal green */
+        radial-gradient(circle at 50% 50%, var(--royal-green) 3px, transparent 3px),
+        radial-gradient(circle at 0% 0%, var(--gold-accent) 2px, transparent 2px),
+        radial-gradient(circle at 100% 0%, var(--gold-accent) 2px, transparent 2px),
+        radial-gradient(circle at 0% 100%, var(--gold-accent) 2px, transparent 2px),
+        radial-gradient(circle at 100% 100%, var(--gold-accent) 2px, transparent 2px);
+    background-size: 80px 80px, 80px 80px, 80px 80px, 80px 80px, 80px 80px, 80px 80px;
+    background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+    opacity: 0.15;
+    animation: patternShift 30s linear infinite;
+}
+
+.islamic-pattern::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Additional layer: Moroccan/Andalusian star and cross pattern */
+    background-image:
+        repeating-conic-gradient(from 0deg at 25% 25%,
+            transparent 0deg,
+            var(--royal-green-dark) 5deg,
+            transparent 10deg,
+            transparent 45deg,
+            var(--royal-green-dark) 50deg,
+            transparent 55deg,
+            transparent 90deg),
+        repeating-conic-gradient(from 0deg at 75% 75%,
+            transparent 0deg,
+            rgba(212, 175, 55, 0.2) 5deg,
+            transparent 10deg,
+            transparent 45deg,
+            rgba(212, 175, 55, 0.2) 50deg,
+            transparent 55deg,
+            transparent 90deg);
+    background-size: 120px 120px;
+    opacity: 0.25;
+    animation: patternShiftReverse 40s linear infinite;
 }
 
 @keyframes patternShift {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(50px, 50px); }
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(80px, 80px) rotate(0deg); }
+}
+
+@keyframes patternShiftReverse {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(-60px, -60px) rotate(0deg); }
 }
 
 .pattern-overlay {

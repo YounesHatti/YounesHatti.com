@@ -122,21 +122,29 @@ body {
 }
 
 .nav-logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
     padding: 0.5rem 1rem;
     background: var(--royal-green);
     border-radius: 10px;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(15, 99, 66, 0.3);
+    height: 50px;
 }
 
 .nav-logo:hover {
     background: var(--royal-green-light);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(15, 99, 66, 0.5);
+}
+
+.logo-img {
+    height: 35px;
+    width: auto;
+    display: block;
+    filter: brightness(0) invert(1);
 }
 
 .nav-links {

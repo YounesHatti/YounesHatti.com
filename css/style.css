@@ -1,0 +1,387 @@
+/* ================================
+   Root Variables - Royal Green Theme
+   ================================ */
+:root {
+    --royal-green: #0f6342;
+    --royal-green-light: #1a8f5e;
+    --royal-green-dark: #0a4730;
+    --gold-accent: #d4af37;
+    --dark-bg: #0a0f0d;
+    --darker-bg: #050807;
+    --glass-bg: rgba(15, 99, 66, 0.1);
+    --glass-border: rgba(15, 99, 66, 0.2);
+    --text-primary: #e8f5e9;
+    --text-secondary: #a5d6a7;
+}
+
+/* ================================
+   Reset & Base Styles
+   ================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ================================
+   Islamic Pattern Background
+   ================================ */
+.islamic-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: var(--darker-bg);
+    background-image:
+        repeating-linear-gradient(45deg, transparent, transparent 35px, var(--royal-green-dark) 35px, var(--royal-green-dark) 70px),
+        repeating-linear-gradient(-45deg, transparent, transparent 35px, var(--royal-green-dark) 35px, var(--royal-green-dark) 70px);
+    opacity: 0.3;
+}
+
+.islamic-pattern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 25% 25%, var(--royal-green) 2px, transparent 2px),
+        radial-gradient(circle at 75% 75%, var(--gold-accent) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.2;
+    animation: patternShift 20s linear infinite;
+}
+
+@keyframes patternShift {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+}
+
+.pattern-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(circle at center, transparent 0%, var(--dark-bg) 100%);
+}
+
+/* ================================
+   Container & Layout
+   ================================ */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* ================================
+   Glass Morphism Cards
+   ================================ */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow:
+        0 8px 32px 0 rgba(15, 99, 66, 0.15),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    background: rgba(15, 99, 66, 0.15);
+    border-color: rgba(15, 99, 66, 0.4);
+    box-shadow:
+        0 12px 48px 0 rgba(15, 99, 66, 0.25),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* ================================
+   Hero Section
+   ================================ */
+.hero {
+    margin-bottom: 3rem;
+}
+
+.profile-card {
+    text-align: center;
+}
+
+.profile-image {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 2rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--royal-green);
+    box-shadow:
+        0 0 0 4px var(--dark-bg),
+        0 0 0 5px var(--gold-accent),
+        0 8px 24px rgba(15, 99, 66, 0.4);
+    position: relative;
+}
+
+.profile-image::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--royal-green), var(--gold-accent), var(--royal-green));
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.profile-image:hover::before {
+    opacity: 1;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.name {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--text-primary), var(--royal-green-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+/* ================================
+   Social Links
+   ================================ */
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: rgba(15, 99, 66, 0.2);
+    border: 1px solid var(--glass-border);
+    color: var(--royal-green-light);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: var(--royal-green);
+    color: var(--text-primary);
+    border-color: var(--gold-accent);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 16px rgba(15, 99, 66, 0.4);
+}
+
+.social-link svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* ================================
+   Content Sections
+   ================================ */
+.about,
+.blog {
+    margin-bottom: 2rem;
+}
+
+.content-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--royal-green-light);
+    border-bottom: 2px solid var(--glass-border);
+    padding-bottom: 0.5rem;
+    position: relative;
+}
+
+.content-card h2::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--royal-green), var(--gold-accent));
+}
+
+.content-card p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+}
+
+/* ================================
+   Blog Section
+   ================================ */
+.blog-list {
+    margin-top: 1.5rem;
+}
+
+.blog-post {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--glass-border);
+    transition: padding-left 0.3s ease;
+}
+
+.blog-post:last-child {
+    border-bottom: none;
+}
+
+.blog-post:hover {
+    padding-left: 1rem;
+}
+
+.blog-post h3 {
+    margin-bottom: 0.5rem;
+}
+
+.blog-post h3 a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.blog-post h3 a:hover {
+    color: var(--royal-green-light);
+}
+
+.blog-post time {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--gold-accent);
+    margin-bottom: 0.5rem;
+}
+
+.blog-post p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* ================================
+   Footer
+   ================================ */
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 3rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+/* ================================
+   Responsive Design
+   ================================ */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem 1rem;
+    }
+
+    .glass-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .name {
+        font-size: 2rem;
+    }
+
+    .profile-image {
+        width: 150px;
+        height: 150px;
+    }
+
+    .content-card h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .name {
+        font-size: 1.75rem;
+    }
+
+    .tagline {
+        font-size: 1rem;
+    }
+
+    .profile-image {
+        width: 130px;
+        height: 130px;
+    }
+
+    .glass-card {
+        padding: 1.5rem 1rem;
+    }
+}
+
+/* ================================
+   Animations
+   ================================ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero,
+.about,
+.blog {
+    animation: fadeIn 0.8s ease-out;
+}
+
+.about {
+    animation-delay: 0.2s;
+}
+
+.blog {
+    animation-delay: 0.4s;
+}

@@ -89,7 +89,7 @@ This website is designed to be extremely easy to maintain:
 
 Current links in the website:
 - GitHub: https://github.com/YounesHatti
-- X (Twitter): https://x.com/YOUNESxHATTI
+- X (Twitter): https://x.com/Younes_Hatti
 
 To update these, edit the social links section in `index.html`.
 

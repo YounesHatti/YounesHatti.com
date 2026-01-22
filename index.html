@@ -21,8 +21,25 @@
     <div class="islamic-pattern"></div>
     <div class="pattern-overlay"></div>
 
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">YH</a>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#blog" class="nav-link">Blog</a></li>
+            </ul>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
     <!-- Main Container -->
-    <div class="container">
+    <div class="container" id="home">
         <!-- Hero Section -->
         <section class="hero">
             <div class="glass-card profile-card">
@@ -30,7 +47,7 @@
                     <img src="assets/images/YounesHATTI Photo.jpg" alt="Younes Hatti">
                 </div>
                 <h1 class="name">Younes Hatti</h1>
-                <p class="tagline">Developer & Creator</p>
+                <p class="tagline">Mechanical Engineer & Founder at AndalusiaDrafting.com</p>
 
                 <!-- Social Links -->
                 <div class="social-links">
@@ -39,7 +56,7 @@
                             <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                         </svg>
                     </a>
-                    <a href="https://x.com/YOUNESxHATTI" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (Twitter)">
+                    <a href="https://x.com/Younes_Hatti" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (Twitter)">
                         <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
                             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
                         </svg>
@@ -49,15 +66,16 @@
         </section>
 
         <!-- About Section -->
-        <section class="about">
+        <section class="about" id="about">
             <div class="glass-card content-card">
                 <h2>About</h2>
-                <p>Welcome to my corner of the internet. This is where I share my thoughts, projects, and journey.</p>
+                <p>Mechanical Engineer, Founder, Manager, and Draftsman at <a href="https://AndalusiaDrafting.com" target="_blank" rel="noopener noreferrer" style="color: var(--royal-green-light); text-decoration: none; border-bottom: 1px solid var(--royal-green-light);">AndalusiaDrafting.com</a></p>
+                <p style="margin-top: 1rem;">Passionate about Architectural Drafting, Computer Science, Free and Open Source Software, Privacy, and Freedom.</p>
             </div>
         </section>
 
         <!-- Blog Section -->
-        <section class="blog">
+        <section class="blog" id="blog">
             <div class="glass-card content-card">
                 <h2>Blog</h2>
                 <p>Coming soon...</p>
@@ -79,5 +97,48 @@
             <p>&copy; 2026 Younes Hatti. All rights reserved.</p>
         </footer>
     </div>
+
+    <!-- Navigation Menu Script -->
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Update active link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinksAll = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinksAll.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

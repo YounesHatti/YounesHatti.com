@@ -84,12 +84,152 @@ body {
 }
 
 /* ================================
+   Navigation Menu
+   ================================ */
+.nav-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1rem 0;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 4px 16px rgba(15, 99, 66, 0.1);
+    animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background: var(--royal-green);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(15, 99, 66, 0.3);
+}
+
+.nav-logo:hover {
+    background: var(--royal-green-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 99, 66, 0.5);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--royal-green), var(--gold-accent));
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--text-primary);
+    background: rgba(15, 99, 66, 0.2);
+}
+
+.nav-link:hover::before {
+    width: 70%;
+}
+
+.nav-link.active {
+    color: var(--text-primary);
+    background: rgba(15, 99, 66, 0.3);
+    border: 1px solid var(--glass-border);
+}
+
+.nav-link.active::before {
+    width: 70%;
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: var(--royal-green-light);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle:hover span {
+    background: var(--gold-accent);
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* ================================
    Container & Layout
    ================================ */
 .container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 2rem 1.5rem;
+    padding: 6rem 1.5rem 2rem;
     position: relative;
     z-index: 1;
 }
@@ -317,8 +457,40 @@ footer {
    Responsive Design
    ================================ */
 @media (max-width: 768px) {
+    /* Navigation responsive */
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        flex-direction: column;
+        width: 100%;
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--glass-border);
+        padding: 1rem 0;
+        gap: 0;
+        transition: left 0.3s ease;
+        box-shadow: 0 4px 16px rgba(15, 99, 66, 0.2);
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .nav-link {
+        width: 100%;
+        text-align: center;
+        padding: 1rem;
+        border-radius: 0;
+    }
+
     .container {
-        padding: 1.5rem 1rem;
+        padding: 5rem 1rem 1.5rem;
     }
 
     .glass-card {

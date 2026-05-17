@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools - Younes Hatti</title>
+    <meta name="description" content="Useful tools by Younes Hatti - Timezone Board, Architectural Calculator, and Exchange Rate Calculator.">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/Younes.svg">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR_GA_ID');
+    </script>
+
+    <style>
+        /* ================================
+           Tools Page — Dashboard Layout
+           ================================ */
+
+        /* Wider container for dashboard */
+        .container {
+            max-width: 1200px;
+            padding: 4.5rem 1.5rem 0.5rem;
+        }
+
+        /* Compact hero */
+        .hero {
+            margin-bottom: 1rem;
+        }
+        .hero .content-card {
+            padding: 1.25rem;
+        }
+        .hero h1 {
+            font-size: 1.75rem;
+            margin-bottom: 0.25rem;
+        }
+        .hero p {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        /* Dashboard grid: 2 columns, 2 rows */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 1.25rem;
+            margin-bottom: 1rem;
+            align-items: start;
+        }
+
+        /* Explicit card placement */
+        .tool-card:nth-child(1) { /* Timezone */
+            grid-column: 1;
+            grid-row: 1;
+        }
+        .tool-card:nth-child(2) { /* Architectural - full width bottom */
+            grid-column: 1 / span 2;
+            grid-row: 2;
+        }
+        .tool-card:nth-child(3) { /* Exchange Rate */
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        /* Compact tool cards */
+        .tool-card {
+            padding: 1.25rem;
+            margin-bottom: 0;
+        }
+
+        .tool-card h2 {
+            font-size: 1.15rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.4rem;
+            color: var(--royal-green-light);
+            border-bottom: 2px solid var(--glass-border);
+            position: relative;
+        }
+
+        .tool-card h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--royal-green), var(--gold-accent));
+        }
+
+        /* ================================
+           Timezone Board
+           ================================ */
+        .clock-board {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .clock-face {
+            background: rgba(15, 99, 66, 0.15);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .clock-face:hover {
+            background: rgba(15, 99, 66, 0.25);
+            border-color: rgba(15, 99, 66, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .clock-location {
+            font-size: 0.8rem;
+            color: var(--gold-accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.35rem;
+        }
+
+        .clock-time {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-variant-numeric: tabular-nums;
+            line-height: 1.2;
+        }
+
+        .clock-date {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.2rem;
+        }
+
+        .clock-offset {
+            font-size: 0.75rem;
+            color: var(--royal-green-light);
+            margin-top: 0.35rem;
+        }
+
+        /* ================================
+           Architectural Calculator
+           ================================ */
+        .arch-calc {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .calc-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .calc-input {
+            background: rgba(15, 99, 66, 0.15);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 0.45rem 0.7rem;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            width: 120px;
+            transition: all 0.3s ease;
+        }
+
+        .calc-input:focus {
+            outline: none;
+            border-color: var(--royal-green-light);
+            background: rgba(15, 99, 66, 0.25);
+            box-shadow: 0 0 0 3px rgba(15, 99, 66, 0.2);
+        }
+
+        .calc-input::placeholder {
+            color: rgba(165, 214, 167, 0.5);
+        }
+
+        .calc-select {
+            background: rgba(15, 99, 66, 0.15);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 0.45rem 0.7rem;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calc-select:focus {
+            outline: none;
+            border-color: var(--royal-green-light);
+        }
+
+        .calc-btn {
+            background: var(--royal-green);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 10px;
+            padding: 0.45rem 1rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(15, 99, 66, 0.3);
+        }
+
+        .calc-btn:hover {
+            background: var(--royal-green-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(15, 99, 66, 0.5);
+        }
+
+        .calc-btn:active {
+            transform: translateY(0);
+        }
+
+        .calc-result {
+            background: rgba(15, 99, 66, 0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 0.6rem 0.9rem;
+            min-height: 2.25rem;
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .calc-result .label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+        }
+
+        .calc-result .value {
+            font-weight: 700;
+            color: var(--gold-accent);
+        }
+
+        .converter-section {
+            border-top: 1px solid var(--glass-border);
+            padding-top: 0.75rem;
+            margin-top: 0.25rem;
+        }
+
+        .converter-section h3 {
+            font-size: 1rem;
+            color: var(--royal-green-light);
+            margin-bottom: 0.6rem;
+        }
+
+        .converter-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+        }
+
+        .converter-box {
+            background: rgba(15, 99, 66, 0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 0.75rem;
+        }
+
+        .converter-box label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.3rem;
+        }
+
+        .converter-box .calc-input {
+            width: 100%;
+            margin-bottom: 0.4rem;
+        }
+
+        .converter-box .calc-result {
+            min-height: 2rem;
+            padding: 0.4rem 0.6rem;
+            font-size: 0.95rem;
+        }
+
+        /* ================================
+           Exchange Rate Calculator
+           ================================ */
+        .rate-calc {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .rate-display {
+            background: rgba(15, 99, 66, 0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 0.75rem;
+            text-align: center;
+        }
+
+        .rate-display .rate-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.2rem;
+        }
+
+        .rate-display .rate-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold-accent);
+        }
+
+        .rate-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .rate-input-group label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .rate-input-group .calc-input {
+            width: 100%;
+            max-width: none;
+        }
+
+        .currency-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .currency-box {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .currency-box label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.3rem;
+        }
+
+        .currency-box .calc-input {
+            width: 100%;
+        }
+
+        .currency-arrow {
+            font-size: 1.25rem;
+            color: var(--royal-green-light);
+            margin-top: 1rem;
+        }
+
+        /* ================================
+           Compact footer
+           ================================ */
+        footer {
+            margin-top: 1rem;
+            padding: 1rem 0;
+        }
+
+        /* ================================
+           Responsive
+           ================================ */
+        @media (max-width: 768px) {
+            .container {
+                max-width: 800px;
+                padding: 5rem 1rem 1.5rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                gap: 1rem;
+            }
+
+            .tool-card:nth-child(1),
+            .tool-card:nth-child(2),
+            .tool-card:nth-child(3) {
+                grid-column: 1;
+                grid-row: auto;
+            }
+
+            .clock-time {
+                font-size: 1.5rem;
+            }
+
+            .calc-input {
+                width: 100px;
+            }
+
+            .converter-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .currency-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.5rem;
+            }
+
+            .currency-arrow {
+                text-align: center;
+                margin-top: 0;
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Islamic Pattern Background -->
+    <div class="islamic-pattern"></div>
+    <div class="pattern-overlay"></div>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <img src="../assets/images/Younes.svg" alt="Younes Hatti" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../index.html#about" class="nav-link">About</a></li>
+                <li><a href="../index.html#blog" class="nav-link">Blog</a></li>
+                <li><a href="index.html" class="nav-link active">Tools</a></li>
+            </ul>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Page Header -->
+        <section class="hero">
+            <div class="glass-card content-card" style="text-align: center;">
+                <h1 style="font-size: 1.75rem; margin-bottom: 0.25rem; color: var(--text-primary);">Tools</h1>
+                <p style="color: var(--text-secondary); font-size: 1rem; margin: 0;">My daily tools.</p>
+            </div>
+        </section>
+
+        <!-- Tools Grid -->
+        <div class="tools-grid">
+            <!-- Timezone Board -->
+            <section class="glass-card tool-card">
+                <h2>Timezone Board</h2>
+                <div class="clock-board">
+                    <div class="clock-face">
+                        <div class="clock-location">Algiers, Algeria</div>
+                        <div class="clock-time" id="clock-algiers">--:--:--</div>
+                        <div class="clock-date" id="date-algiers">--</div>
+                        <div class="clock-offset" id="offset-algiers">UTC+1</div>
+                    </div>
+                    <div class="clock-face">
+                        <div class="clock-location">California, USA</div>
+                        <div class="clock-time" id="clock-california">--:--:--</div>
+                        <div class="clock-date" id="date-california">--</div>
+                        <div class="clock-offset" id="offset-california">--</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Architectural Calculator -->
+            <section class="glass-card tool-card">
+                <h2>Architectural Calculator</h2>
+                <div class="arch-calc">
+                    <div class="calc-row">
+                        <input type="text" class="calc-input" id="arch-input-a" placeholder='e.g. 3/16"'>
+                        <select class="calc-select" id="arch-op">
+                            <option value="add">+</option>
+                            <option value="sub">−</option>
+                            <option value="mul">×</option>
+                        </select>
+                        <input type="text" class="calc-input" id="arch-input-b" placeholder='e.g. 5/8"'>
+                        <button class="calc-btn" id="arch-calc-btn">=</button>
+                    </div>
+                    <div class="calc-result">
+                        <span class="label">Result:</span>
+                        <span class="value" id="arch-result">--</span>
+                    </div>
+
+                    <div class="converter-section">
+                        <h3>Converters</h3>
+                        <div class="converter-grid">
+                            <div class="converter-box">
+                                <label>Decimal Inches → Feet</label>
+                                <input type="number" class="calc-input" id="conv-inches" placeholder="inches">
+                                <div class="calc-result">
+                                    <span class="value" id="conv-feet-result">--</span>
+                                </div>
+                            </div>
+                            <div class="converter-box">
+                                <label>Feet → Decimal Inches</label>
+                                <input type="number" class="calc-input" id="conv-feet" placeholder="feet">
+                                <div class="calc-result">
+                                    <span class="value" id="conv-inches-result">--</span>
+                                </div>
+                            </div>
+                            <div class="converter-box">
+                                <label>Inches → Meters</label>
+                                <input type="number" class="calc-input" id="conv-in-m" placeholder="inches">
+                                <div class="calc-result">
+                                    <span class="value" id="conv-m-in-result">--</span>
+                                </div>
+                            </div>
+                            <div class="converter-box">
+                                <label>Feet → Meters</label>
+                                <input type="number" class="calc-input" id="conv-ft-m" placeholder="feet">
+                                <div class="calc-result">
+                                    <span class="value" id="conv-m-ft-result">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exchange Rate Calculator -->
+            <section class="glass-card tool-card">
+                <h2>Exchange Rate Calculator</h2>
+                <div class="rate-calc">
+                    <div class="rate-input-group">
+                        <label for="rate-custom">Custom Parallel Market Rate (1 USD = ? DZD)</label>
+                        <input type="number" class="calc-input" id="rate-custom" value="220" min="1" step="0.01">
+                    </div>
+
+                    <div class="rate-display">
+                        <div class="rate-label">Current Rate</div>
+                        <div class="rate-value" id="rate-display">1 USD = 220 DZD</div>
+                    </div>
+
+                    <div class="currency-row">
+                        <div class="currency-box">
+                            <label for="usd-amount">USD ($)</label>
+                            <input type="number" class="calc-input" id="usd-amount" placeholder="0.00" min="0" step="0.01">
+                        </div>
+                        <div class="currency-arrow">→</div>
+                        <div class="currency-box">
+                            <label for="dzd-amount">DZD (د.ج)</label>
+                            <input type="number" class="calc-input" id="dzd-amount" placeholder="0.00" min="0" step="0.01">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2026 Younes Hatti. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Navigation Menu Script -->
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+
+    <!-- ================================
+         Timezone Board Script
+         ================================ -->
+    <script>
+        (function() {
+            const algiersTimeEl = document.getElementById('clock-algiers');
+            const algiersDateEl = document.getElementById('date-algiers');
+            const algiersOffsetEl = document.getElementById('offset-algiers');
+            const californiaTimeEl = document.getElementById('clock-california');
+            const californiaDateEl = document.getElementById('date-california');
+            const californiaOffsetEl = document.getElementById('offset-california');
+
+            function formatTime(date, timeZone) {
+                return new Intl.DateTimeFormat('en-US', {
+                    timeZone,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                }).format(date);
+            }
+
+            function formatDate(date, timeZone) {
+                return new Intl.DateTimeFormat('en-US', {
+                    timeZone,
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                }).format(date);
+            }
+
+            function getOffsetLabel(timeZone) {
+                const now = new Date();
+                const tzDate = new Date(now.toLocaleString('en-US', { timeZone }));
+                const utcDate = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }));
+                const diffHours = (tzDate - utcDate) / 3600000;
+                const sign = diffHours >= 0 ? '+' : '';
+                return `UTC${sign}${diffHours}`;
+            }
+
+            function updateClocks() {
+                const now = new Date();
+
+                algiersTimeEl.textContent = formatTime(now, 'Africa/Algiers');
+                algiersDateEl.textContent = formatDate(now, 'Africa/Algiers');
+                algiersOffsetEl.textContent = getOffsetLabel('Africa/Algiers');
+
+                californiaTimeEl.textContent = formatTime(now, 'America/Los_Angeles');
+                californiaDateEl.textContent = formatDate(now, 'America/Los_Angeles');
+                californiaOffsetEl.textContent = getOffsetLabel('America/Los_Angeles');
+            }
+
+            updateClocks();
+            setInterval(updateClocks, 1000);
+        })();
+    </script>
+
+    <!-- ================================
+         Architectural Calculator Script
+         ================================ -->
+    <script>
+        (function() {
+            // Parse a string like "3/16", "2 1/4", "5", "0.75" into decimal inches
+            function parseFraction(str) {
+                if (!str) return NaN;
+                str = str.trim().replace(/"/g, '');
+
+                // Mixed number: "2 1/4"
+                const mixed = str.match(/^(\d+)\s+(\d+)\/(\d+)$/);
+                if (mixed) {
+                    return parseInt(mixed[1]) + parseInt(mixed[2]) / parseInt(mixed[3]);
+                }
+
+                // Simple fraction: "3/16"
+                const frac = str.match(/^(\d+)\/(\d+)$/);
+                if (frac) {
+                    return parseInt(frac[1]) / parseInt(frac[2]);
+                }
+
+                // Decimal or integer
+                const num = parseFloat(str);
+                return isNaN(num) ? NaN : num;
+            }
+
+            function decimalToFraction(decimal) {
+                if (decimal === 0) return '0"';
+                const sign = decimal < 0 ? '-' : '';
+                decimal = Math.abs(decimal);
+                const whole = Math.floor(decimal);
+                const frac = decimal - whole;
+
+                if (frac < 0.0001) return `${sign}${whole}"`;
+
+                // Find closest common fraction denominator up to 64
+                let bestNum = 0, bestDen = 1, bestErr = Infinity;
+                const denominators = [2, 4, 8, 16, 32, 64];
+                for (const d of denominators) {
+                    const n = Math.round(frac * d);
+                    const err = Math.abs(frac - n / d);
+                    if (err < bestErr) {
+                        bestErr = err;
+                        bestNum = n;
+                        bestDen = d;
+                    }
+                }
+
+                if (bestNum === 0) return `${sign}${whole || 0}"`;
+                if (bestNum === bestDen) return `${sign}${(whole || 0) + 1}"`;
+
+                if (whole > 0) {
+                    return `${sign}${whole} ${bestNum}/${bestDen}"`;
+                }
+                return `${sign}${bestNum}/${bestDen}"`;
+            }
+
+            const inputA = document.getElementById('arch-input-a');
+            const inputB = document.getElementById('arch-input-b');
+            const opSelect = document.getElementById('arch-op');
+            const calcBtn = document.getElementById('arch-calc-btn');
+            const resultEl = document.getElementById('arch-result');
+
+            function calculate() {
+                const a = parseFraction(inputA.value);
+                const b = parseFraction(inputB.value);
+                const op = opSelect.value;
+
+                if (isNaN(a) || isNaN(b)) {
+                    resultEl.textContent = '--';
+                    return;
+                }
+
+                let res;
+                switch (op) {
+                    case 'add': res = a + b; break;
+                    case 'sub': res = a - b; break;
+                    case 'mul': res = a * b; break;
+                    default: res = 0;
+                }
+
+                const frac = decimalToFraction(res);
+                const dec = res.toFixed(4).replace(/\.?0+$/, '');
+                resultEl.textContent = `${frac}  (${dec}")`;
+            }
+
+            calcBtn.addEventListener('click', calculate);
+            inputA.addEventListener('keypress', e => { if (e.key === 'Enter') calculate(); });
+            inputB.addEventListener('keypress', e => { if (e.key === 'Enter') calculate(); });
+
+            // Converters
+            const convInches = document.getElementById('conv-inches');
+            const convFeetResult = document.getElementById('conv-feet-result');
+            convInches.addEventListener('input', () => {
+                const v = parseFloat(convInches.value);
+                if (isNaN(v)) { convFeetResult.textContent = '--'; return; }
+                const ft = v / 12;
+                convFeetResult.textContent = `${ft.toFixed(4).replace(/\.?0+$/, '')} ft`;
+            });
+
+            const convFeet = document.getElementById('conv-feet');
+            const convInchesResult = document.getElementById('conv-inches-result');
+            convFeet.addEventListener('input', () => {
+                const v = parseFloat(convFeet.value);
+                if (isNaN(v)) { convInchesResult.textContent = '--'; return; }
+                const inches = v * 12;
+                convInchesResult.textContent = `${inches.toFixed(4).replace(/\.?0+$/, '')}"`;
+            });
+
+            const convInM = document.getElementById('conv-in-m');
+            const convMInResult = document.getElementById('conv-m-in-result');
+            convInM.addEventListener('input', () => {
+                const v = parseFloat(convInM.value);
+                if (isNaN(v)) { convMInResult.textContent = '--'; return; }
+                const m = v * 0.0254;
+                convMInResult.textContent = `${m.toFixed(4).replace(/\.?0+$/, '')} m`;
+            });
+
+            const convFtM = document.getElementById('conv-ft-m');
+            const convMFtResult = document.getElementById('conv-m-ft-result');
+            convFtM.addEventListener('input', () => {
+                const v = parseFloat(convFtM.value);
+                if (isNaN(v)) { convMFtResult.textContent = '--'; return; }
+                const m = v * 0.3048;
+                convMFtResult.textContent = `${m.toFixed(4).replace(/\.?0+$/, '')} m`;
+            });
+        })();
+    </script>
+
+    <!-- ================================
+         Exchange Rate Calculator Script
+         ================================ -->
+    <script>
+        (function() {
+            const rateInput = document.getElementById('rate-custom');
+            const rateDisplay = document.getElementById('rate-display');
+            const usdInput = document.getElementById('usd-amount');
+            const dzdInput = document.getElementById('dzd-amount');
+
+            function getRate() {
+                const r = parseFloat(rateInput.value);
+                return isNaN(r) || r <= 0 ? 220 : r;
+            }
+
+            function updateRateDisplay() {
+                const r = getRate();
+                rateDisplay.textContent = `1 USD = ${r} DZD`;
+            }
+
+            function usdToDzd() {
+                const usd = parseFloat(usdInput.value);
+                if (isNaN(usd)) { dzdInput.value = ''; return; }
+                const dzd = usd * getRate();
+                dzdInput.value = dzd.toFixed(2);
+            }
+
+            function dzdToUsd() {
+                const dzd = parseFloat(dzdInput.value);
+                if (isNaN(dzd)) { usdInput.value = ''; return; }
+                const usd = dzd / getRate();
+                usdInput.value = usd.toFixed(2);
+            }
+
+            rateInput.addEventListener('input', () => {
+                updateRateDisplay();
+                if (usdInput.value) usdToDzd();
+                else if (dzdInput.value) dzdToUsd();
+            });
+
+            usdInput.addEventListener('input', usdToDzd);
+            dzdInput.addEventListener('input', dzdToUsd);
+
+            updateRateDisplay();
+        })();
+    </script>
+</body>
+</html>
